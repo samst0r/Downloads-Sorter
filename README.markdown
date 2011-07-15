@@ -1,6 +1,4 @@
-# DOWNLOAD FOLDER SORTER
-
-## Description
+# README
 Useful for cuttered downloads folders.
 
 Sorts files in the folder the scripts located. 
