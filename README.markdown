@@ -1,6 +1,6 @@
-<h1>DOWNLOAD FOLDER SORTER</h1>
-----------------------
+# DOWNLOAD FOLDER SORTER
 
+## Description
 Useful for cuttered downloads folders.
 
 Sorts files in the folder the scripts located. 
