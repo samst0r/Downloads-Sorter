@@ -15,7 +15,12 @@ class Sort:
 			
 		foundLastWeek = os.path.exists(os.getcwd() + '/Last Week')
 		foundOlder = os.path.exists(os.getcwd() + '/Older')
-				
+		
+		print '-------------------------'
+		print '*    DOWNLOAD SORTER    *'
+		print '*      by Sam Ward      *'
+		print '-------------------------\n'
+			
 		if (not foundOlder):
 			print 'Creating Older Directory...'
 			os.mkdir(os.getcwd() + '/Older')
