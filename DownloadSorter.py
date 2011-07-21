@@ -15,6 +15,7 @@ class Sort:
 			
 		foundLastWeek = os.path.exists(os.getcwd() + '/Last Week')
 		foundOlder = os.path.exists(os.getcwd() + '/Older')
+		foundToday = os.path.exists(os.getcwd() + '/Today')
 		
 		print '-------------------------'
 		print '*    DOWNLOAD SORTER    *'
@@ -28,7 +29,11 @@ class Sort:
 			print 'Creating LastWeek Directory...'
 			os.mkdir(os.getcwd() + '/Last Week')
 		
-		if (foundOlder and foundLastWeek):
+		if (not foundToday):
+			print 'Creating Today Directory...'
+			os.mkdir(os.getcwd() + '/Today')
+
+		if (foundOlder and foundLastWeek and foundToday):
 			print 'Directories Already Exist...'
 			
 	def FileCreatedToday(self, file): 
@@ -66,10 +71,12 @@ class Sort:
 			if (file[:1] != '.' and
 				file != 'Last Week' and
 				file != 'Older' and
+				file != 'Today' and
 				file != os.path.basename(__file__)):
 			
 			        if (self.FileCreatedToday(file)):
-					print '  Leaving ' + file + ' in place.' 	
+					shutil.move(file,'Today')
+					print '  Moved ' + file + ' to Today.' 	
 				elif (self.FileOlderThanWeek(file)):
 					shutil.move(file, 'Older')
 					print '  Moved ' + file + ' to Older.'
@@ -77,6 +84,18 @@ class Sort:
 					shutil.move(file, 'Last Week')
 					print '  Moved ' + file + ' to Last Week.'
 				
+		
+		print 'Sorting Today Folder...'
+		todayPath = os.path.join(os.getcwd(), 'Today')
+		files = [f for f in os.listdir(todayPath) if os.path.isfile( os.path.join(todayPath, f)) or os.path.isdir( os.path.join(todayPath, f))]
+		for f in files:
+			if (not self.FileCreatedToday(todayPath + '/' + f)):
+				shutil.move(os.getcwd() + '/Today/' + f, os.getcwd() + '/Last Week/')					
+				print '  Moved ' + f + ' to Last Week.'
+			else:
+				print '  Leaving ' + f + ' in place.'					
+
+ 
 		print 'Sorting Last Week Folder...'
 		lastWeekPath = os.path.join(os.getcwd(), 'Last Week')
 		files = [f for f in os.listdir(lastWeekPath) if os.path.isfile( os.path.join(lastWeekPath, f)) or os.path.isdir( os.path.join(lastWeekPath, f))]
